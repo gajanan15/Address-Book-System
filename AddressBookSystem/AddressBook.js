@@ -97,6 +97,35 @@ class Address {
             jsonString = JSON.stringify(file);
             jsonFile.writeJsonFile(jsonString);
         };
+        //Sort Data By Field
+        this.sortByField = () => {
+            var file = jsonFile.readJsonFile();
+            console.log("Edit Details");
+            console.log("1)Address\n2)City\n3)State\n4)Zip\n5)phoneNumber");
+            let option = readlineSync.question('Enter your Choice: ');
+            switch (option) {
+                case "1":
+                    file.sort((a, b) => a._address.localeCompare(b._address));
+                    break;
+                case "2":
+                    file.sort((a, b) => a._city.localeCompare(b._city));
+                    break;
+                case "3":
+                    file.sort((a, b) => a._state.localeCompare(b._state));
+                    break;
+                case "4":
+                    file.sort((a, b) => a._zip.localeCompare(b._zip));
+                    break;
+                case "5":
+                    file.sort((a, b) => a._phoneNumber.localeCompare(b._phoneNumber));
+                    break;
+                default:
+                    console.log("Wrong Input");
+            }
+            jsonString = JSON.stringify(file);
+            jsonFile.writeJsonFile(jsonString);
+            console.log(file);
+        };
         //Display Person
         this.display = () => {
             var file = jsonFile.readJsonFile();
