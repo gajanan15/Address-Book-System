@@ -34,6 +34,14 @@ class Address {
             var phoneNumber = readlineSync.question("Enter phoneNumber Name : ");
             personDetail.setPhoneNumber(phoneNumber);
         };
+        //Display Person
+        this.display = () => {
+            var file = jsonFile.readJsonFile();
+            console.log("Display All Records");
+            file.map((data, index) => {
+                console.log(index + 1, data);
+            });
+        };
     }
 }
 exports.Address = Address;

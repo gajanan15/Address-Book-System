@@ -9,7 +9,6 @@ let jsonString: string;
 export class Address {
 
     //Adding Records
-
     addRecord = () => {
         this.userInput();
         var file = jsonFile.readJsonFile();
@@ -19,7 +18,6 @@ export class Address {
     }
 
     //Add Person
-
     userInput = () => {
         var firstName: string = readlineSync.question('Enter First Name: ');
         personDetail.setFirstName(firstName)
@@ -35,5 +33,14 @@ export class Address {
         personDetail.setZip(zip)
         var phoneNumber: number = readlineSync.question("Enter phoneNumber Name : ")
         personDetail.setPhoneNumber(phoneNumber)
+    }
+
+    //Display Person
+    display = () => {
+        var file = jsonFile.readJsonFile();
+        console.log("Display All Records");
+        file.map((data, index) => {
+            console.log(index + 1, data);
+        })
     }
 }
