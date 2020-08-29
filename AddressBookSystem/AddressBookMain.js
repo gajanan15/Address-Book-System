@@ -13,8 +13,9 @@ class AddressBookMain {
                 console.log("\n================== ADDRESS BOOK =======================\n");
                 option = readlineSync.question("1) Add Person\n" +
                     "2) Edit Person\n" +
-                    "3) Display Person\n" +
-                    "4) Exit\n" +
+                    "3) Delete Person\n" +
+                    "4) Display Person\n" +
+                    "5) Exit\n" +
                     "Enter Option : ");
                 switch (option) {
                     case "1":
@@ -24,9 +25,12 @@ class AddressBookMain {
                         personRecord.editPerson();
                         break;
                     case "3":
-                        personRecord.display();
+                        personRecord.deletePerson();
                         break;
                     case "4":
+                        personRecord.display();
+                        break;
+                    case "5":
                         process_1.exit();
                     default:
                         readlineSync.question("Wrong Input");

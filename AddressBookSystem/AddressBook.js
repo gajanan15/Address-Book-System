@@ -15,6 +15,7 @@ class Address {
             this.userInput();
             var file = jsonFile.readJsonFile();
             file.push(personDetail);
+            console.log("Person Added Successfully");
             jsonString = JSON.stringify(file);
             jsonFile.writeJsonFile(jsonString);
         };
@@ -79,17 +80,27 @@ class Address {
                         default:
                             readlineSync.question("Wrong Input");
                     }
-                    console.log("Edit Succesfully");
+                    console.log("Edit Successfully");
                     file[i] = personDetail;
                     jsonString = JSON.stringify(file);
                     jsonFile.writeJsonFile(jsonString);
                 }
             }
         };
+        //Delete Person
+        this.deletePerson = () => {
+            var file = jsonFile.readJsonFile();
+            console.log("length:  " + file.length);
+            var id = readlineSync.question('Enter ID To Delete Person: ');
+            file.splice((id - 1), 1);
+            console.log("Delete Person Successfully");
+            jsonString = JSON.stringify(file);
+            jsonFile.writeJsonFile(jsonString);
+        };
         //Display Person
         this.display = () => {
             var file = jsonFile.readJsonFile();
-            console.log("Display All Records");
+            console.log("================== Display All Records =================");
             file.map((data, index) => {
                 console.log(index + 1, data);
             });
