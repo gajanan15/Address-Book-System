@@ -29,30 +29,18 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Person.json" />
     <Content Include="USERS.json">
       <SubType>Code</SubType>
     </Content>
     <None Include="AddressBookMain.ts" />
     <Content Include="package.json" />
-    <Content Include="Person.json">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="README.md" />
     <Content Include="tsconfig.json" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="AddressBook.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="AddressBookException.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="Demo.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="JsonFileOperation.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
+    <TypeScriptCompile Include="AddressBook.ts" />
+    <TypeScriptCompile Include="JsonFileOperation.ts" />
     <TypeScriptCompile Include="Model.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
