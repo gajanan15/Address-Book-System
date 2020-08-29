@@ -9,18 +9,23 @@ let option: string;
 class AddressBookMain {
     addressBook = () => {
         while (true) {
+            console.log("\n================== ADDRESS BOOK =======================\n")
             option = readlineSync.question("1) Add Person\n" +
-                                           "2) Display Person\n" +
-                                           "3) Exit\n" +
+                                           "2) Edit Person\n" +
+                                           "3) Display Person\n" +
+                                           "4) Exit\n" +
                                            "Enter Option : ");
             switch (option) {
                 case "1":
                     personRecord.addRecord();
                     break;
                 case "2":
-                    personRecord.display();
+                    personRecord.editPerson();
                     break;
                 case "3":
+                    personRecord.display();
+                    break;
+                case "4":
                     exit();
                 default:
                     readlineSync.question("Wrong Input");
