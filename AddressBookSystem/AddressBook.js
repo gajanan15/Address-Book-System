@@ -4,20 +4,65 @@ exports.Address = void 0;
 const Model_1 = require("./Model");
 const JsonFileOperation_1 = require("./JsonFileOperation");
 const process_1 = require("process");
+const AddressBookException_1 = require("./AddressBookException");
 var readlineSync = require('readline-sync');
 let jsonFile = new JsonFileOperation_1.FileWriter();
 let personDetail = new Model_1.Person();
 let jsonString;
+var regExName = new RegExp("^[A-Z]{1}[a-z]{2,}$");
+var regExAddress = new RegExp("^\\w{1,150}");
+var regExCity = new RegExp("^[a-zA-Z]+");
+var regExState = new RegExp("^[a-zA-Z]+");
+var regExNumber = new RegExp("^([6-9]{1}[0-9]{9})$");
+var regExZip = new RegExp("^[1-9]{1}[0-9]{2}[-]{0,1}[0-9]{3}$");
 class Address {
     constructor() {
         //Adding Records
         this.addRecord = () => {
-            this.userInput();
             var file = jsonFile.readJsonFile();
-            file.push(personDetail);
-            console.log("Person Added Successfully");
-            jsonString = JSON.stringify(file);
-            jsonFile.writeJsonFile(jsonString);
+            let person = this.userInput();
+            let isNewPerson = true;
+            for (let i = 0; i < file.length; i++) {
+                if (person.phoneNumber == file[i]._phoneNumber) {
+                    isNewPerson = false;
+                }
+            }
+            if (isNewPerson) {
+                this.checkValidation(person);
+            }
+            else {
+                throw new AddressBookException_1.BookException("Mobile Number Already Present.......");
+            }
+        };
+        this.checkValidation = (person) => {
+            var file = jsonFile.readJsonFile();
+            if (!regExName.test(person._firstName)) {
+                throw new AddressBookException_1.BookException("Please Enter Valid First Name");
+            }
+            else if (!regExName.test(person._lastName)) {
+                throw new AddressBookException_1.BookException("Please Enter Valid Last Name");
+            }
+            else if (!regExAddress.test(person._address)) {
+                throw new AddressBookException_1.BookException("Please Enter Valid Address");
+            }
+            else if (!regExCity.test(person._city)) {
+                throw new AddressBookException_1.BookException("Please Enter Valid City");
+            }
+            else if (!regExState.test(person._state)) {
+                throw new AddressBookException_1.BookException("Please Enter Valid State");
+            }
+            else if (!regExZip.test(person._zip)) {
+                throw new AddressBookException_1.BookException("Please Enter Valid Zip Code");
+            }
+            else if (!regExNumber.test(person._phoneNumber)) {
+                throw new AddressBookException_1.BookException("Please Enter Valid Phone Number");
+            }
+            else {
+                file.push(person);
+                jsonString = JSON.stringify(file);
+                jsonFile.writeJsonFile(jsonString);
+                console.log("Person Added Successfully.....");
+            }
         };
         //Add Person
         this.userInput = () => {
@@ -35,6 +80,7 @@ class Address {
             personDetail.setZip(zip);
             var phoneNumber = readlineSync.question("Enter phoneNumber Name : ");
             personDetail.setPhoneNumber(phoneNumber);
+            return personDetail;
         };
         //Edit Person
         this.editPerson = () => {
@@ -80,7 +126,7 @@ class Address {
                         default:
                             readlineSync.question("Wrong Input");
                     }
-                    console.log("Edit Successfully");
+                    console.log("Edit Successfully.......");
                     file[i] = personDetail;
                     jsonString = JSON.stringify(file);
                     jsonFile.writeJsonFile(jsonString);
@@ -91,9 +137,10 @@ class Address {
         this.deletePerson = () => {
             var file = jsonFile.readJsonFile();
             console.log("length:  " + file.length);
+            this.display();
             var id = readlineSync.question('Enter ID To Delete Person: ');
             file.splice((id - 1), 1);
-            console.log("Delete Person Successfully");
+            console.log("Delete Person Successfully......");
             jsonString = JSON.stringify(file);
             jsonFile.writeJsonFile(jsonString);
         };
